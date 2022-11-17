@@ -13,7 +13,8 @@ model User {
   password  String
   accountId Int    @unique
 
-  account Account @relation(fields: [accountId], references: [id])
+  account Account   @relation(fields: [accountId], references: [id])
+  Session Session[]
 
   @@map("users")
 }
@@ -40,4 +41,13 @@ model Transaction {
   creditedAccount Account @relation(name: "credited", fields: [creditedAccountId], references: [id])
 
   @@map("transactions")
+}
+
+model Session {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+  token  String @unique
+
+  @@map("sessions")
 }
