@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { CreateUser } from '../utils/createData';
 
+import { CreateUser } from '../utils/createData.js';
 import * as userRepository from "../repositories/userRepository.js"
 
 export async function SignUp(createUser: CreateUser) {
