@@ -8,21 +8,19 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  username  String @unique
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
   password  String
-  accountId Int    @unique
-
-  account Account   @relation(fields: [accountId], references: [id])
-  Session Session[]
+  accountId Int?      @unique
+  account   Account?  @relation(fields: [accountId], references: [id])
+  Session   Session[]
 
   @@map("users")
 }
 
 model Account {
-  id      Int   @id @default(autoincrement())
-  balance Float
-
+  id       Int           @id @default(autoincrement())
+  balance  Float
   user     User?
   debited  Transaction[] @relation(name: "debited")
   credited Transaction[] @relation(name: "credited")
@@ -36,9 +34,8 @@ model Transaction {
   creditedAccountId Int
   value             Float
   createdAt         DateTime @default(now())
-
-  debitedAccount  Account @relation(name: "debited", fields: [debitedAccountId], references: [id])
-  creditedAccount Account @relation(name: "credited", fields: [creditedAccountId], references: [id])
+  debitedAccount    Account  @relation(name: "debited", fields: [debitedAccountId], references: [id])
+  creditedAccount   Account  @relation(name: "credited", fields: [creditedAccountId], references: [id])
 
   @@map("transactions")
 }
