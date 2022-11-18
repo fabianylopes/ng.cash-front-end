@@ -23,7 +23,13 @@ export async function SignIn(createUser: CreateUser) {
     const correctPassword = bcrypt.compareSync(password, user.password);
     if(!correctPassword) throw { type: "unauthorized", message: "Invalid password" } 
 
+    const userData = { userId: user.id }
     const secretKey = process.env.JWT_SECRET;
-    const token = jwt.sign({ userId: user.id }, secretKey);
+    const expiration = { expiresIn: 60*60*24 }
+
+    const token = jwt.sign(userData, secretKey, expiration);
+
+    await userRepository.createSession(token, user.id);
     
+    return { ...user, token };
 }

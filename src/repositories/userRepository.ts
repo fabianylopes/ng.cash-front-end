@@ -14,7 +14,6 @@ export async function create(createUser: CreateUser) {
                 }
             }
         }
-
     });
 }
 

@@ -11,5 +11,9 @@ export async function SignUp(req: Request, res: Response) {
 }
 
 export async function SignIn(req: Request, res: Response) {
-    
+    const userData = req.body;
+
+    const data = await userService.SignIn(userData);
+
+    return res.status(200).send(data);
 }
