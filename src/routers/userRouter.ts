@@ -8,5 +8,6 @@ const userRouter = Router();
 
 userRouter.post('/sign-up', validateSchemaMiddleware(signUpSchema), userController.SignUp);
 userRouter.post('/sign-in', validateSchemaMiddleware(signInSchema), userController.SignIn);
+userRouter.delete('/sign-out', userController.signOut);
 
 export default userRouter;

@@ -33,3 +33,7 @@ export async function SignIn(createUser: CreateUser) {
     
     return { ...user, token };
 }
+
+export async function signOut(token: string) {
+    await userRepository.endSession(token);
+}
