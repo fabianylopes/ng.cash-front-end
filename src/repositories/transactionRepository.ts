@@ -18,7 +18,7 @@ export async function create(createTransaction: CreateTransaction) {
       creditedAccountId,
       value
     }
-  })
+  });
 }
 
 export async function updateBalance(id:number, balance: number) {
@@ -28,6 +28,22 @@ export async function updateBalance(id:number, balance: number) {
     },
     data: {
       balance,
+    }
+  });
+}
+
+export async function getCashOutTransactions(debitedAccountId: number) {
+  return prisma.transaction.findMany({
+    where: {
+      debitedAccountId,
+    }
+  });
+}
+
+export async function getCashInTransactions(creditedAccountId: number) {
+  return prisma.transaction.findMany({
+    where: {
+      creditedAccountId,
     }
   });
 }

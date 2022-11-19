@@ -6,6 +6,7 @@ import { validateTokenMiddleware } from "../middlewares/tokenMiddleware.js";
 const transactionRouter = Router();
 
 transactionRouter.get('/', validateTokenMiddleware, transactionController.findBalance);
-transactionRouter.post('/cash-out', transactionController.create);
+transactionRouter.post('/cash-out', validateTokenMiddleware, transactionController.create);
+transactionRouter.get('/transactions', validateTokenMiddleware, transactionController.getTransactions)
 
 export default transactionRouter;

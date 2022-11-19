@@ -19,3 +19,13 @@ export async function create(req: Request, res: Response) {
   return res.sendStatus(201);
 }
 
+export async function getTransactions(req: Request, res: Response) {
+  const { accountId } = req.body;
+
+  const transactios = []
+
+  const debitedTransactions = await transactionRepository.getCashOutTransactions(accountId);
+  const creditedTransactions = await transactionRepository.getCashInTransactions(accountId);
+
+  return res.status(200).send([...transactios, debitedTransactions, creditedTransactions]);
+}
