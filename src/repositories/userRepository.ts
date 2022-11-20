@@ -39,10 +39,18 @@ export async function findById(id: number) {
   });
 }
 
-export async function endSession(token: string) {
-  return prisma.session.delete({
+export async function endSession(userId: number) {
+  return prisma.session.deleteMany({
     where: {
-      token,
+      userId,
+    }
+  });
+}
+
+export async function findIdByUsername(username: string) {
+  return prisma.user.findUnique({
+    where: {
+      username,
     }
   });
 }

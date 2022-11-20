@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { findIdByUsername } from "../repositories/userRepository.js";
 
 import * as userService from "../services/userService.js"
 
@@ -19,9 +20,17 @@ export async function SignIn(req: Request, res: Response) {
 }
 
 export async function signOut(req: Request, res: Response) {
-  const { token } = req.body;
+  const { accountId } = res.locals.userToken;
 
-  await userService.signOut(token);
+  await userService.signOut(accountId);
 
   res.sendStatus(200);
+}
+
+export async function findAccountId(req: Request, res: Response) {
+  const { username } = req.body;
+
+  const creditedAccountId = await findIdByUsername(username);
+
+  return res.status(200).send(creditedAccountId);
 }
