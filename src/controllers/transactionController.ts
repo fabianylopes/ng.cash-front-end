@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import * as transactionService from "../services/transactionService.js";
 import * as transactionRepository from "../repositories/transactionRepository.js";
+import * as userRepository from "../repositories/userRepository.js";
 
 export async function findBalance(req: Request, res: Response) {
   const userData = res.locals.userToken;
@@ -13,19 +14,24 @@ export async function findBalance(req: Request, res: Response) {
 
 export async function create(req: Request, res: Response) {
   const body = req.body;
+  const debitedAccountId = res.locals.userToken.accountId;
 
-  await transactionService.cashOut(body);
+  const accountId = await userRepository.findIdByUsername(body.username);
+  const creditedAccountId = accountId.accountId;
+  const value = parseFloat(body.value);
+
+  await transactionService.cashOut(debitedAccountId, creditedAccountId, value);
 
   return res.sendStatus(201);
 }
 
 export async function getTransactions(req: Request, res: Response) {
-  const { accountId } = req.body;
+  const { accountId } = res.locals.userToken;
 
-  const transactios = []
+  const transactios = {}
 
   const debitedTransactions = await transactionRepository.getCashOutTransactions(accountId);
   const creditedTransactions = await transactionRepository.getCashInTransactions(accountId);
 
-  return res.status(200).send([...transactios, debitedTransactions, creditedTransactions]);
+  return res.status(200).send({...transactios, debitedTransactions, creditedTransactions});
 }
