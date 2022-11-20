@@ -18,14 +18,40 @@ function signUp(body){
 
 function getBalance(token){
   const config = getConfig(token);
-  const promise = axios.get(`${BASE_URL}/`,config);
+  const promise = axios.get(`${BASE_URL}/`, config);
+  return promise;
+}
+
+function signOut(token){
+  const promise = axios.delete(`${BASE_URL}/sign-out`, token);
+  return promise;
+}
+
+function cashOut(body, token){
+  const config = getConfig(token);
+  const promise = axios.post(`${BASE_URL}/cash-out`, body, config);
+  return promise;
+}
+
+function findAccountId(username){
+  const promise = axios.get(`${BASE_URL}/findAccountId`, username);
+  return promise;
+}
+
+function getTransactions(body, token){
+  const config = getConfig(token);
+  const promise = axios.get(`${BASE_URL}/transactions`, body, config);
   return promise;
 }
 
 const api = {
   signIn,
   signUp,
-  getBalance
+  getBalance,
+  signOut,
+  cashOut,
+  findAccountId,
+  getTransactions
 }
 
 export default api;

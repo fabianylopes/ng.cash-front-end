@@ -9,8 +9,7 @@ import UserContext from "../../contexts/UserContext";
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const { token, setToken } = useContext(UserContext);
-
+  const { token, setToken, setUserData } = useContext(UserContext);
   const [signInData, setSignInData] = useState({});
 
   useEffect(() => {
@@ -22,17 +21,18 @@ export default function SignIn() {
   function handleSignIn(e){
     e.preventDefault();
 
-    api.signIn(signInData).then(handleSuccess).catch(handleFailure)
+    api.signIn(signInData).then(handleSuccess).catch(handleFailure);
   }
 
   function handleSuccess(response){
-    setToken(response.data.token);
+    setUserData(response.data);  
+    setToken(response.data.token);  
 
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userData', JSON.stringify(response.data));
     
-    navigate('/')
+    navigate('/');
   }
-  console.log(token);
 
   function handleFailure(error){
     alert(`${error}!\nPreencha os campos corretamente!`);

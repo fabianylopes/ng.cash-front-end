@@ -9,10 +9,12 @@ import UserContext from "./contexts/UserContext";
 function App(){
 
   const initialToken = localStorage.getItem('token');
+  const initialUserData = localStorage.getItem('userData');
   const [token, setToken] = useState(initialToken);
+  const [userData, setUserData] = useState(JSON.parse(initialUserData));
 
   return (
-    <UserContext.Provider value={{ token, setToken }}>
+    <UserContext.Provider value={{ token, setToken, userData, setUserData }}>
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<Home/>}/>
