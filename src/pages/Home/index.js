@@ -3,16 +3,16 @@ import { useState, useEffect, useContext } from 'react';
 
 import UserContext from '../../contexts/UserContext';
 import api from '../../services/api';
-import { Header, Balance, Button} from "./style";
+import { Box, Title, Header, Img} from "./style";
 import Transactions from "../../components/Transactions";
-import CashOut from "../../components/CashOut";
+import Out from "../../assets/out.png";
 
 export default function Home() {
   const navigate = useNavigate();
 
   const { token, setToken, userData } = useContext(UserContext);
   const [balance, setBalance] = useState(0);
-  const [cashOutBox, setCashOutBox] = useState(false);
+
 
   useEffect(() => getBalance(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -31,17 +31,19 @@ export default function Home() {
   }
 
   return (
-    <>
+    <Box>
       <Header>
-        <p>{userData.username}'s Balance: R$ {balance.toFixed(2)}</p>
-        <Button onClick={signOut}>Sign Out</Button>
-        <Button onClick={() => setCashOutBox(!cashOutBox)}>Cash Out</Button>
-        {cashOutBox && <CashOut setCashOutBox={setCashOutBox}/>}
+        <div>
+          <Title>Olá, {userData.username}</Title>
+          <Title>Seu saldo atual é de <span>R$ {balance.toFixed(2)}</span></Title>
+        </div>
+          <Img onClick={signOut}>
+              <img src={Out} alt=""/>
+          </Img>
       </Header>
-      <Balance>
 
-      </Balance>
       <Transactions/>
-    </>
+      
+    </Box>
   );
 }
