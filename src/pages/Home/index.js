@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import UserContext from '../../contexts/UserContext';
 import api from '../../services/api';
-import { H1, Box, Title, Top, Img, Button, Header, Container, Footer} from "./style";
+import { H1, Box, Title, Top, Img, Buttons, Button, Header, Container, Footer} from "./style";
 import Out from "../../assets/out.png";
 import Transactions from "../../components/Transactions";
 import CashOut from "../../components/CashOut";
@@ -48,11 +48,11 @@ export default function Home() {
       <Container>
       <Header>
         <Title>Minhas Transações</Title>
-        <div>
-          <Button onClick={() => setShowTransactions("default")}>Todas</Button>
-          <Button onClick={() => setShowTransactions("ins")}>Recebidas</Button>       
-          <Button onClick={() => setShowTransactions("outs")}>Realizadas</Button>
-        </div>
+        <Buttons>
+          <Button className='default' color={showTransactions} onClick={() => setShowTransactions("default")}>Todas</Button>
+          <Button className='ins' color={showTransactions} onClick={() => setShowTransactions("ins")}>Recebidas</Button>       
+          <Button className='outs'color={showTransactions} onClick={() => setShowTransactions("outs")}>Realizadas</Button>
+        </Buttons>
 
         <Transactions showTransactions={showTransactions}/>
 

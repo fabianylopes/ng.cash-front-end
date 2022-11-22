@@ -23,7 +23,8 @@ function getBalance(token){
 }
 
 function signOut(token){
-  const promise = axios.delete(`${BASE_URL}/sign-out`, token);
+  const config = getConfig(token);
+  const promise = axios.delete(`${BASE_URL}/sign-out`, config);
   return promise;
 }
 
@@ -38,9 +39,9 @@ function findAccountId(username){
   return promise;
 }
 
-function getTransactions(body, token){
+function getTransactions(token){
   const config = getConfig(token);
-  const promise = axios.get(`${BASE_URL}/transactions`, body, config);
+  const promise = axios.get(`${BASE_URL}/transactions`, config);
   return promise;
 }
 

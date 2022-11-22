@@ -18,6 +18,7 @@ const Top = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
+  
   }
 `
 
@@ -63,10 +64,11 @@ const Header = styled.div`
   justify-content: space-between;
   gap: 6px;
 
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
+`
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const Button = styled.button`
@@ -97,8 +99,6 @@ const Footer = styled.div`
   }
 `
 
-
-
 export 
 { 
   H1,
@@ -106,6 +106,7 @@ export
   Img,
   Title,
   Top,
+  Buttons,
   Button,
   Header,
   Container, 
