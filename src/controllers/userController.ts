@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { findIdByUsername } from "../repositories/userRepository.js";
 
+import * as userRepository from "../repositories/userRepository.js";
 import * as userService from "../services/userService.js"
 
 export async function SignUp(req: Request, res: Response) {
@@ -30,7 +30,7 @@ export async function signOut(req: Request, res: Response) {
 export async function findAccountId(req: Request, res: Response) {
   const { username } = req.body;
 
-  const creditedAccountId = await findIdByUsername(username);
+  const creditedAccountId = await userRepository.findIdByUsername(username);
 
   return res.status(200).send(creditedAccountId);
 }
