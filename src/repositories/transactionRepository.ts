@@ -1,5 +1,4 @@
 import { prisma } from "../config/db.js";
-import { CreateTransaction } from "../utils/createData.js";
 
 export async function findBalance(id: number) {
   return prisma.account.findUnique({
@@ -9,9 +8,7 @@ export async function findBalance(id: number) {
   });
 }
 
-export async function create(createTransaction: CreateTransaction) {
-  const { debitedAccountId, creditedAccountId, value } = createTransaction;
-
+export async function create(debitedAccountId: number, creditedAccountId: number, value: number) {
   return prisma.transaction.create({
     data: {
       debitedAccountId,
@@ -29,6 +26,25 @@ export async function updateBalance(id:number, balance: number) {
     data: {
       balance,
     }
+  });
+}
+
+export async function getTransactions(accountId: number) {
+  return prisma.transaction.findMany({
+    where: {
+      OR: [
+        {
+          debitedAccountId: {
+            equals: accountId,
+          },
+        },
+        {
+          creditedAccountId: {
+            equals: accountId,
+          },
+        },
+      ],
+    },
   });
 }
 

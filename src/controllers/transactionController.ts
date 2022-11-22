@@ -28,10 +28,7 @@ export async function create(req: Request, res: Response) {
 export async function getTransactions(req: Request, res: Response) {
   const { accountId } = res.locals.userToken;
 
-  const transactios = {}
+  const transactions = await transactionService.get(accountId);
 
-  const debitedTransactions = await transactionRepository.getCashOutTransactions(accountId);
-  const creditedTransactions = await transactionRepository.getCashInTransactions(accountId);
-
-  return res.status(200).send({...transactios, debitedTransactions, creditedTransactions});
+  return res.status(200).send(transactions);
 }
