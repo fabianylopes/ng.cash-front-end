@@ -14,7 +14,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate("/main");
     }
   }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -31,7 +31,7 @@ export default function SignIn() {
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("userData", JSON.stringify(response.data));
 
-    navigate("/");
+    navigate("/main");
   }
 
   function handleFailure(error) {
