@@ -56,7 +56,7 @@ export default function Main() {
     <Box>
       <Top>
         <div>
-          <H1>Olá, {userData.username || ""}</H1>
+          <H1>Olá, {userData.username}</H1>
           <H1>
             Seu saldo atual é de <span>R$ {balance.toFixed(2)}</span>
           </H1>

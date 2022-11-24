@@ -10,4 +10,4 @@ Depois, acesse <a href="http://localhost:3000/">http://localhost:3000/</a> no se
 
 Dentro da pasta execute `npm install` para instalar as dependências e `npm run dev` para iniciar o projeto.
 
-O servidor ficará disponível no endereço <a href="http://localhost:4000/">http://localhost:3333/</a>.
+O servidor ficará disponível no endereço <a href="http://localhost:4000/">http://localhost:4000/</a>.
